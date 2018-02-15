@@ -34,6 +34,14 @@ class Grant(SurrogatePK, Model):
         db.Model.__init__(self, **kwargs)
         self.scopes = scopes
 
+    @staticmethod
+    def get_all_by_user(user):
+        return Grant.query.filter_by(user=user).all()
+
+    @staticmethod
+    def delete_all_by_user(user):
+        Grant.query.filter_by(user=user).delete()
+
     @hybrid_property
     def scopes(self):
         """Return scopes list."""
